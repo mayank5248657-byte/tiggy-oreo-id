@@ -7,10 +7,16 @@
   <style>
     body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; background-color: #f9f9f9; padding: 20px; }
     .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 400px; margin: auto; }
-    h1 { color: #d9534f; font-size: 24px; }
+    .photo-container { display: flex; justify-content: center; gap: 20px; margin-bottom: 15px; }
+    .photo-box { text-align: center; }
+    .profile-photo { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; border: 4px solid; }
+    .pet-photo { border-color: #0275d8; }
+    .owner-photo { border-color: #28a745; }
+    .photo-label { font-size: 14px; font-weight: bold; color: #555; margin-top: 5px; }
+    h1 { color: #d9534f; font-size: 22px; margin-top: 10px; }
     h2 { color: #333; margin-bottom: 5px; }
-    p { font-size: 16px; color: #555; line-height: 1.6; }
-    .alert { background: #eef9ff; border: 1.5px solid #0275d8; padding: 12px; border-radius: 8px; font-weight: bold; color: #0275d8; margin-bottom: 15px; }
+    p { font-size: 16px; color: #555; line-height: 1.6; margin: 6px 0; }
+    .alert { background: #eef9ff; border: 1.5px solid #0275d8; padding: 12px; border-radius: 8px; font-weight: bold; color: #0275d8; margin-top: 15px; margin-bottom: 15px; }
     .contact { font-size: 18px; font-weight: bold; }
     .contact a { color: #0275d8; text-decoration: none; display: block; margin: 10px 0; background: #eef7ff; padding: 10px; border-radius: 8px; border: 1px solid #bce0fd;}
     .address-box { background: #f8f9fa; padding: 10px; border-radius: 8px; border: 1px solid #ddd; margin-top: 15px; }
@@ -20,9 +26,24 @@
 <body>
 
   <div class="card">
+    <div class="photo-container">
+      <div class="photo-box">
+        <img src="oreo.jpg" alt="Oreo Photo" class="profile-photo pet-photo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3616/3616854.png'">
+        <div class="photo-label">ओरियो 🐾</div>
+      </div>
+      <div class="photo-box">
+        <img src="owner.jpg" alt="Mayank Photo" class="profile-photo owner-photo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
+        <div class="photo-label">मयंक (ओनर) 👤</div>
+      </div>
+    </div>
+    
     <h1>🚨 कृपया मेरी मदद करें, मैं रास्ता भटक गया हूँ! 🚨</h1>
     <h2>मेरा नाम ओरियो (Oreo) है 🐾</h2>
-    <p><strong>ब्रीड:</strong> इंडी (Indie) | <strong>उम्र:</strong> 10 महीने</p>
+    
+    <p><strong>डॉग आधार आईडी:</strong> Oreo2025</p>
+    <p><strong>जन्म तिथि:</strong> 3 नवंबर 2025</p>
+    <p><strong>वर्तमान उम्र:</strong> <span id="age"></span></p>
+    <p><strong>ब्रीड:</strong> इंडी (Indie)</p>
     
     <div class="alert">
       😊 स्वभाव: मैं बहुत फ्रेंडली हूँ और इंसानों से बिल्कुल नहीं डरता हूँ। आप आराम से मेरे पास आ सकते हैं। कृपया मेरे मालिक को कॉल करें!
@@ -40,11 +61,32 @@
       <p>114/3A मैत्री नगर, रिसाली, भिलाई<br>(मैत्री शॉपी के पास)</p>
     </div>
 
-    <!-- भविष्य में जब आप GPS ट्रैकर लेंगे, तो उसका लिंक या कोड हम यहाँ जोड़ेंगे -->
     <div class="tracker-placeholder">
       📍 Live GPS Tracking Status: (अभी एक्टिव नहीं है, जल्द जुड़ेगा)
     </div>
   </div>
+
+  <script>
+    function calculateAge(dob) {
+      var birthDate = new Date(dob);
+      var today = new Date();
+      var years = today.getFullYear() - birthDate.getFullYear();
+      var months = today.getMonth() - birthDate.getMonth();
+      if (months < 0 || (months === 0 && today.getDate() < birthDate.getDate())) {
+          years--;
+          months += 12;
+      }
+      if (today.getDate() < birthDate.getDate()) {
+          months--;
+      }
+      var ageStr = "";
+      if (years > 0) { ageStr += years + " साल "; }
+      if (months > 0 || years === 0) { ageStr += months + " महीने"; }
+      if (years === 0 && months === 0) { ageStr = "1 महीने से कम"; }
+      return ageStr;
+    }
+    document.getElementById("age").innerText = calculateAge("2025-11-03");
+  </script>
 
 </body>
 </html>
